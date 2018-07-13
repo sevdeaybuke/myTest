@@ -13,6 +13,7 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 import tr.com.smooth.purplecheatah.app.Application;
 import tr.com.smooth.purplecheatah.gui.GuiManager;
+import tr.com.smooth.purplecheatah.models.Exam;
 import tr.com.smooth.purplecheatah.models.Student;
 import tr.com.smooth.purplecheatah.models.Teacher;
 import tr.com.smooth.purplecheatah.remote.MainService;
@@ -78,7 +79,7 @@ public class CommandLineManager implements GuiManager {
                         break;
                     }
                     case 5: {
-                       showExamInfo();
+                       showExamInfo(id);
                         break;
                     }
                     case 6: {
@@ -296,8 +297,13 @@ public class CommandLineManager implements GuiManager {
 
     }
 
-    private void showExamInfo() {
+    private void showExamInfo(String id) {
         System.out.println("Öğrenciye ait sınav bilgileri görüntüleniyor:");
+        Exam exam = new Exam();
+        exam = getMainService().showExamInfo(id);
+        System.out.println(exam.toString());
+        
+        
     }
 
     private void showGradeInfo() {

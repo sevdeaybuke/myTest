@@ -8,6 +8,7 @@ package tr.com.smooth.purplecheatah.remote;
 import java.util.List;
 import javax.persistence.EntityManager;
 import tr.com.smooth.purplecheatah.app.Application;
+import tr.com.smooth.purplecheatah.models.Exam;
 import tr.com.smooth.purplecheatah.models.Student;
 import tr.com.smooth.purplecheatah.models.Teacher;
 import tr.com.smooth.purplecheatah.services.StudentService;
@@ -199,6 +200,18 @@ public class MainService {
         EntityManager em = createSession();
         try {
             return teacherService.showSelfTeacher(em, id);
+        } catch (Exception e) {
+            rollback(em);
+            throw e;
+        } finally {
+            commit(em);
+        }
+    }
+
+    public Exam showExamInfo(String id) {
+        EntityManager em = createSession();
+        try {
+            return studentService.showExamInfo(em, id);
         } catch (Exception e) {
             rollback(em);
             throw e;
