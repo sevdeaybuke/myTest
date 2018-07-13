@@ -240,6 +240,10 @@ public class MainService {
         EntityManager em = createSession();
         try {
             return studentService.getLetterGrades(em,id);
+    public List<Lecture>  showTeacherLectures() {
+        EntityManager em = createSession();
+        try {
+            return (List<Lecture>) teacherService.showTeacherLectures(em);
         } catch (Exception e) {
             rollback(em);
             throw e;

@@ -149,7 +149,7 @@ public class CommandLineManager implements GuiManager {
         System.out.println("3 ) Ogretmen Ekle");
         System.out.println("4 ) Ogretmen Sil");
         System.out.println("5 ) Ogrenci Ara");
-        System.out.println("7 ) Dersleri Göster");
+ 
         Integer selection = toInt(read("Seciminiz"));
         if (selection == null) {
             System.out.println("Hatali secim ");
@@ -182,6 +182,10 @@ public class CommandLineManager implements GuiManager {
                     showLectures();
                     break;
                 }
+                case 8: {
+                    showTeacherLectures();
+                    break;
+                }           
 
             }
         }
@@ -265,7 +269,7 @@ public class CommandLineManager implements GuiManager {
 
      getMainService().deleteStudent(id);
 
-<<<<<<< HEAD
+<<<<<<< HEAD (600dfd4) - Letter Grades added
     }
      */
     private void showTeacher() throws Exception {
@@ -377,7 +381,7 @@ public class CommandLineManager implements GuiManager {
     }
 
     private void showLectures() {
-        System.out.println("Derslerin Listesi");
+        System.out.println("Tüm Derslerin Listesi");
         List<Lecture> lectures = getMainService().showLectures();
         hr();
         System.out.print(String.format("%5s", "ID"));
@@ -392,6 +396,7 @@ public class CommandLineManager implements GuiManager {
         }
 
     }
+
     
     private void showLetterGrades(String id) {
         List<TakenLecture> courses = getMainService().getLetterGrades(id);
@@ -415,6 +420,21 @@ public class CommandLineManager implements GuiManager {
             hr();
         }
 
-    }
 
+    }
+    private void showTeacherLectures() {
+        System.out.println("Alınan Derslerin Listesi");
+        List<Lecture> lectures = getMainService().showLectures();
+        hr();
+        System.out.print(String.format("%5s", "ID"));
+        System.out.print(String.format("%25s", "Name"));
+        System.out.print(String.format("%50s", "Credits"));
+        System.out.println("");
+        for (Lecture lecture : lectures) {
+            System.out.print(String.format("%5d", lecture.getId()));
+            System.out.print(String.format("%25s", lecture.getLectureName()));
+            System.out.print(String.format("%50s", lecture.getCredit()));
+            System.out.println("");
+        }
+    }
 }

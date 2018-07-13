@@ -71,5 +71,15 @@ public class TeacherDao {
 
         return (List<Lecture>) query.getResultList();
     }
+    public List<Lecture> getTeacherLectures(EntityManager em) {
+        Query query = em.createQuery("select lecture_name,credit from Lecture inner join  Teacher on Lecture.t_id=Teacher.id");
+        return query.getResultList();
+    }
+
+    public List<Lecture> showTeacherLectures(EntityManager em) {
+        Query query = em.createQuery("select lecture_name,credit from Lecture inner join  Teacher on Lecture.t_id=Teacher.id");
+        
+        return (List<Lecture>) query.getResultList();
+    }    
 
 }
