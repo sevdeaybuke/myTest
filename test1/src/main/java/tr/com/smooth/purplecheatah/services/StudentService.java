@@ -8,12 +8,14 @@ package tr.com.smooth.purplecheatah.services;
 import java.util.List;
 import javax.persistence.EntityManager;
 import tr.com.smooth.purplecheatah.dao.StudentDao;
+import tr.com.smooth.purplecheatah.models.Lecture;
 import tr.com.smooth.purplecheatah.models.Student;
 
 
 public class StudentService {
 
     StudentDao dao = new StudentDao();
+    
 
     public List<Student> getStudents(EntityManager em) {
         return dao.getStudents(em);
@@ -39,6 +41,15 @@ public class StudentService {
 
     public Student showSelfInfo(EntityManager em , String id) {
         return dao.showSelfInfo(em,id);
+    }
+    
+    public List<Lecture> getLectures(EntityManager em) {
+        return dao.getLectures(em);
+    }
+
+    public List<Lecture> showLectures(EntityManager em) {
+        return (List<Lecture>) dao.showLectures(em);
+
     }
 
    

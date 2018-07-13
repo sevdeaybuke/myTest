@@ -13,11 +13,11 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 import tr.com.smooth.purplecheatah.app.Application;
 import tr.com.smooth.purplecheatah.gui.GuiManager;
+import tr.com.smooth.purplecheatah.models.Lecture;
 import tr.com.smooth.purplecheatah.models.Student;
 import tr.com.smooth.purplecheatah.models.Teacher;
 import tr.com.smooth.purplecheatah.remote.MainService;
 import tr.com.smooth.purplecheatah.types.UserType;
-
 
 /**
  *
@@ -37,108 +37,109 @@ public class CommandLineManager implements GuiManager {
         label = ResourceBundle.getBundle("label.label", new Locale("tr", "TR"));
         in = new BufferedReader(new InputStreamReader(System.in));
         showLoginScreen();
-        
+
     }
 
-    
-    
-    private void studentScreen(String id) throws IOException, Exception{
-        
+    private void studentScreen(String id) throws IOException, Exception {
+
         System.out.println(label.getString("STUDENT_INFORMATION_SYSTEM"));
-            hr();
-            System.out.println("1 ) " + label.getString("EXIT"));
-            System.out.println("2 ) " + label.getString("STUDENT_INFO"));
-            System.out.println("3 ) " + label.getString("STUDENT_TAKEN_LECTURE"));
-            System.out.println("4 ) " + label.getString("STUDENT_SELECT_LECTURE"));
-            System.out.println("5 ) " + label.getString("STUDENT_EXAM_INFO"));
-            System.out.println("6 ) " + label.getString("STUDENT_GRADE"));
-           
-          
-            Integer selection = toInt(read(label.getString("SELECT_ACTION")));
-            
-            if (selection == null) {
-                System.out.println(label.getString("CHOICE_ERR"));
+        hr();
+        System.out.println("1 ) " + label.getString("EXIT"));
+        System.out.println("2 ) " + label.getString("STUDENT_INFO"));
+        System.out.println("3 ) " + label.getString("STUDENT_TAKEN_LECTURE"));
+        System.out.println("4 ) " + label.getString("STUDENT_SELECT_LECTURE"));
+        System.out.println("5 ) " + label.getString("STUDENT_EXAM_INFO"));
+        System.out.println("6 ) " + label.getString("STUDENT_GRADE"));
+        System.out.println("7 ) " + label.getString("STUDENT_SEE_LECTURES"));
 
-            } else {
-                switch (selection) {
-                    case 1: {
+        Integer selection = toInt(read(label.getString("SELECT_ACTION")));
 
-                        System.exit(0);
-                    }
-                    case 2: {
-                       showSelfInfo(id);
-                        break;
-                    }
-                    case 3: {
-                        showTakenLectures();
-                        break;
-                    }
-                    case 4: {
-                       selectLectures();
-                        break;
-                    }
-                    case 5: {
-                       showExamInfo();
-                        break;
-                    }
-                    case 6: {
-                       showGradeInfo();
-                        break;
-                    }
-                    /*
-                    case 3: {
-                        addStudent();
-                        break;
-                    }
-                    case 4: {
-                        deleteStudent();
-                    }*/
+        if (selection == null) {
+            System.out.println(label.getString("CHOICE_ERR"));
+
+        } else {
+            switch (selection) {
+                case 1: {
+
+                    System.exit(0);
                 }
+                case 2: {
+                    showSelfInfo(id);
+                    break;
+                }
+                case 3: {
+                    showTakenLectures();
+                    break;
+                }
+                case 4: {
+                    selectLectures();
+                    break;
+                }
+                case 5: {
+                    showExamInfo();
+                    break;
+                }
+                case 6: {
+                    showGradeInfo();
+                    break;
+                }
+                case 7: {
+                    showLectures();
+                    break;
+                }
+                /*
+                 case 3: {
+                 addStudent();
+                 break;
+                 }
+                 case 4: {
+                 deleteStudent();
+                 }*/
             }
+        }
         studentScreen(id);
     }
-    
-    private void teacherScreen(String id) throws IOException, Exception{
-        
-            System.out.println("Ogretmen Bilgi Sistemi");
-            hr();
-            System.out.println("1 ) Cikis");
-            System.out.println("2 ) Ogretmen Goster" );
-            System.out.println("3 ) Ogretmen Ekle");
-            System.out.println("4 ) Ogretmen Sil");
-            System.out.println("5 ) Ogrenci Ara");
-            Integer selection = toInt(read("Seciminiz"));
-            if (selection == null) {
-                System.out.println("Hatali secim ");
 
-            } else {
-                switch (selection) {
-                    case 1: {
-                        System.exit(0);
-                    }
-                    case 2: {
-                        showSelfTeacher(id);
-                        break;
-                    }
-                    case 3: {
-                        addTeacher();
-                        break;
-                    }
-                    case 4: {
-                        deleteTeacher();
-                    }
-                    case 5: {
-                        searchStudent();
-                        
-                    }
-                    case 6: {
-                        setGrade(id);
-                        
-                    }
-                    
+    private void teacherScreen(String id) throws IOException, Exception {
+
+        System.out.println("Ogretmen Bilgi Sistemi");
+        hr();
+        System.out.println("1 ) Cikis");
+        System.out.println("2 ) Ogretmen Goster");
+        System.out.println("3 ) Ogretmen Ekle");
+        System.out.println("4 ) Ogretmen Sil");
+        System.out.println("5 ) Ogrenci Ara");
+        Integer selection = toInt(read("Seciminiz"));
+        if (selection == null) {
+            System.out.println("Hatali secim ");
+
+        } else {
+            switch (selection) {
+                case 1: {
+                    System.exit(0);
+                }
+                case 2: {
+                    showSelfTeacher(id);
+                    break;
+                }
+                case 3: {
+                    addTeacher();
+                    break;
+                }
+                case 4: {
+                    deleteTeacher();
+                }
+                case 5: {
+                    searchStudent();
 
                 }
+                case 6: {
+                    setGrade(id);
+
+                }
+
             }
+        }
         teacherScreen(id);
     }
 
@@ -146,7 +147,6 @@ public class CommandLineManager implements GuiManager {
         System.out.println("---------------------------------------------------");
     }
 
-    
     private String read(String msg) throws IOException {
         System.out.print(msg + " : ");
         return in.readLine();
@@ -160,32 +160,31 @@ public class CommandLineManager implements GuiManager {
         }
     }
 
-    
     private void showLoginScreen() throws Exception {
-        
+
         System.out.println(label.getString("STUDENT_INFORMATION_SYSTEM"));
         System.out.println(label.getString("LOGIN"));
         String id = read(label.getString("USER_NAME"));
         String pass = read(label.getString("PASSWORD"));
-        
-      
-        if(null != getMainService().login(id,pass))switch (getMainService().login(id,pass)) {
-            case STUDENT:
-                studentScreen(id);
-                break;
-            case TEACHER:
-                teacherScreen(id);
-                break;
-            case INVALID:
-                System.out.println(label.getString("WRONG_TYPE"));
-                break;
-            default:
-                break;
+
+        if (null != getMainService().login(id, pass)) {
+            switch (getMainService().login(id, pass)) {
+                case STUDENT:
+                    studentScreen(id);
+                    break;
+                case TEACHER:
+                    teacherScreen(id);
+                    break;
+                case INVALID:
+                    System.out.println(label.getString("WRONG_TYPE"));
+                    break;
+                default:
+                    break;
+            }
         }
-         
-   
+
     }
-    
+
     private void showStudents() throws Exception {
         List<Student> students = getMainService().getStudents();
         hr();
@@ -201,27 +200,28 @@ public class CommandLineManager implements GuiManager {
         }
     }
     /*
-    private void addStudent() throws Exception {
-        System.out.println("Öğrenci Ekleme");
-        Student student = new Student();
-        student.setId(toInt(read("Id")));
-        student.setName(read("Adi"));
-        student.setEmail(read("Email"));
+     private void addStudent() throws Exception {
+     System.out.println("Öğrenci Ekleme");
+     Student student = new Student();
+     student.setId(toInt(read("Id")));
+     student.setName(read("Adi"));
+     student.setEmail(read("Email"));
 
-        getMainService().saveStudent(student);
-    }
+     getMainService().saveStudent(student);
+     }
 
-    private void deleteStudent() throws IOException, Exception {
+     private void deleteStudent() throws IOException, Exception {
 
-        System.out.println("Öğrenci Silme");
-        String id;
+     System.out.println("Öğrenci Silme");
+     String id;
 
-        id = (read("Silinecek ogrencicinin id no"));
+     id = (read("Silinecek ogrencicinin id no"));
 
-        getMainService().deleteStudent(id);
+     getMainService().deleteStudent(id);
 
-    }
-*/
+     }
+     */
+
     private void showTeacher() throws Exception {
         List<Teacher> teachers = getMainService().getTeacher();
         hr();
@@ -232,7 +232,7 @@ public class CommandLineManager implements GuiManager {
         for (Teacher teacher : teachers) {
             System.out.print(String.format("%5d", teacher.getId()));
             System.out.print(String.format("%50s", teacher.getName()));
-           
+
             System.out.println("");
         }
     }
@@ -242,7 +242,6 @@ public class CommandLineManager implements GuiManager {
         Teacher teacher = new Teacher();
         teacher.setName(read("Adi"));
         teacher.setId(toInt(read("id")));
-        
 
         getMainService().saveTeacher(teacher);
     }
@@ -266,25 +265,22 @@ public class CommandLineManager implements GuiManager {
     private void setGrade(String pass) throws IOException {
         int sid;
         int not;
-        
+
         System.out.println("Not giris :");
         sid = (toInt(read("öğrencinin id no")));
         System.out.println("Notunu gir :");
         not = (toInt(read("öğrencinin notu")));
-        getMainService().setGrade(pass,sid,not);
-        
+        getMainService().setGrade(pass, sid, not);
+
     }
 
-    
-    
     private void showSelfInfo(String id) {
         System.out.println("Öğrenci bilgisi görüntüleniyor:");
         Student student = new Student();
         student = getMainService().showSelfInfo(id);
         System.out.println(student.toString());
-        
+
     }
-    
 
     private void showTakenLectures() {
         System.out.println("Öğrencinin aldığı dersler görüntüleniyor:");
@@ -306,8 +302,24 @@ public class CommandLineManager implements GuiManager {
 
     private void showSelfTeacher(String id) {
         System.out.println("Öğretmen Bilgisi Görüntüleniyor..");
-        Teacher teacher=new Teacher();
-        teacher=getMainService().showSelfTeacher(id);
-                
+        Teacher teacher = new Teacher();
+        teacher = getMainService().showSelfTeacher(id);
+
+    }
+
+    private void showLectures() {
+        System.out.println("Derslerin Listesi");
+        List<Lecture> lectures = getMainService().showLectures();
+        hr();
+        System.out.print(String.format("%5s", "ID"));
+        System.out.print(String.format("%25s", "Name"));
+        System.out.print(String.format("%50s", "Credits"));
+        System.out.println("");
+        for (Lecture lecture : lectures) {
+            System.out.print(String.format("%5d", lecture.getId()));
+            System.out.print(String.format("%25s", lecture.getLectureName()));
+            System.out.print(String.format("%50s", lecture.getCredit()));
+            System.out.println("");
+        }
     }
 }

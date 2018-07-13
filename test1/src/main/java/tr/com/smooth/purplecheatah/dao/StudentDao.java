@@ -9,6 +9,7 @@ package tr.com.smooth.purplecheatah.dao;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import tr.com.smooth.purplecheatah.models.Lecture;
 import tr.com.smooth.purplecheatah.models.Student;
 import tr.com.smooth.purplecheatah.utilities.Utilities;
 
@@ -62,4 +63,17 @@ public class StudentDao {
         return (Student) query.getSingleResult();
         
     }
+
+    public List<Lecture> getLectures(EntityManager em) {
+        Query query = em.createQuery("select s from Lecture s");
+        return query.getResultList();
+    }
+
+    public List<Lecture> showLectures(EntityManager em) {
+        Query query = em.createQuery("SELECT s FROM Lecture s");
+        
+        return (List<Lecture>) query.getResultList();
+    }
+
+   
 }
