@@ -9,7 +9,9 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import tr.com.smooth.purplecheatah.app.Application;
 import tr.com.smooth.purplecheatah.models.ExamTaken;
+import tr.com.smooth.purplecheatah.models.Lecture;
 import tr.com.smooth.purplecheatah.models.Student;
+import tr.com.smooth.purplecheatah.models.TakenLecture;
 import tr.com.smooth.purplecheatah.models.Teacher;
 import tr.com.smooth.purplecheatah.services.StudentService;
 import tr.com.smooth.purplecheatah.services.TeacherService;
@@ -23,6 +25,7 @@ public class MainService {
 
     StudentService studentService = new StudentService();
     TeacherService teacherService = new TeacherService();
+
 
     public List<Student> getStudents() throws Exception {
         EntityManager em = createSession();
@@ -138,7 +141,7 @@ public class MainService {
 
         } else {
 
-            if (teacherLogin(id,pass)) {
+            if (teacherLogin(id, pass)) {
                 return UserType.TEACHER;
             } else {
                 return UserType.INVALID;
@@ -159,10 +162,10 @@ public class MainService {
         }
     }
 
-    public boolean teacherLogin(String id,String pass) {
+    public boolean teacherLogin(String id, String pass) {
         EntityManager em = createSession();
         try {
-            return teacherService.login(em,id, pass);
+            return teacherService.login(em, id, pass);
         } catch (Exception e) {
             rollback(em);
             throw e;
@@ -221,5 +224,31 @@ public class MainService {
         }
     }
 
+    public List<Lecture>  showLectures() {
+        EntityManager em = createSession();
+        try {
+            return (List<Lecture>) studentService.showLectures(em);
+        } catch (Exception e) {
+            rollback(em);
+            throw e;
+        } finally {
+            commit(em);
+        }
+    }
+    
+    public List<TakenLecture> getLetterGrades(String id) {
+        EntityManager em = createSession();
+        try {
+            return studentService.getLetterGrades(em,id);
+        } catch (Exception e) {
+            rollback(em);
+            throw e;
+        } finally {
+            commit(em);
+        }
+    }
+    
+
+   
 
 }
