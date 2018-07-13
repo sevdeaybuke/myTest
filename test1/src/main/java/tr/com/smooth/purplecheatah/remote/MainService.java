@@ -220,6 +220,18 @@ public class MainService {
             commit(em);
         }
     }
+    public List<Lecture>  showTeacherLectures() {
+        EntityManager em = createSession();
+        try {
+            return (List<Lecture>) teacherService.showTeacherLectures(em);
+        } catch (Exception e) {
+            rollback(em);
+            throw e;
+        } finally {
+            commit(em);
+        }
+    }
+    
 
    
 
