@@ -149,6 +149,7 @@ public class CommandLineManager implements GuiManager {
         System.out.println("3 ) Ogretmen Ekle");
         System.out.println("4 ) Ogretmen Sil");
         System.out.println("5 ) Ogrenci Ara");
+        System.out.println("7 ) Dersleri Göster");
         Integer selection = toInt(read("Seciminiz"));
         if (selection == null) {
             System.out.println("Hatali secim ");
@@ -176,6 +177,10 @@ public class CommandLineManager implements GuiManager {
                 case 6: {
                     setGrade(id);
 
+                }
+                case 7: {
+                    showLectures();
+                    break;
                 }
 
             }
@@ -411,4 +416,5 @@ public class CommandLineManager implements GuiManager {
         }
 
     }
+
 }
