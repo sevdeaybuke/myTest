@@ -5,7 +5,7 @@
  */
 package tr.com.smooth.purplecheatah.dao;
 
-// This is a DAO Class
+// This is a DAO Class for students
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
