@@ -8,6 +8,7 @@ package tr.com.smooth.purplecheatah.utilities;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import org.apache.commons.codec.digest.DigestUtils;
 
 
 /**
@@ -16,6 +17,8 @@ import java.security.NoSuchAlgorithmException;
  */
 public class Utilities {
 
- 
+    public static String hash(String toHash){
+        return DigestUtils.sha256Hex(toHash);
+    }
 
 }

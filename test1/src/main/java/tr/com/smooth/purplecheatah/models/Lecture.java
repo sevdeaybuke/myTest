@@ -35,7 +35,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Lecture.findByLectureName", query = "SELECT l FROM Lecture l WHERE l.lectureName = :lectureName")
     , @NamedQuery(name = "Lecture.findByCredit", query = "SELECT l FROM Lecture l WHERE l.credit = :credit")})
 public class Lecture implements Serializable {
-    @Column(name = "t_id")
+    @Column(name = "teacher_id")
     private Integer tId;
 
     private static final long serialVersionUID = 1L;

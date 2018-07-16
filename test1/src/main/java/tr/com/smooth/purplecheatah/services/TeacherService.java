@@ -43,13 +43,14 @@ public class TeacherService {
     public Teacher showSelfTeacher(EntityManager em, String id) {
         return dao.showSelfTeachers(em,id);
     }
-    public List<Lecture> getTeacherLectures(EntityManager em) {
-        return dao.getLectures(em);
+    public List<Lecture> getTeacherLectures(EntityManager em, String id) {
+        return (List<Lecture>) dao.getTeacherLectures(em, id);
+
     }
 
-    public List<Lecture> showTeacherLectures(EntityManager em) {
-        return (List<Lecture>) dao.showTeacherLectures(em);
+    public List<Lecture> showTeacherLectures(EntityManager em, String id) {
+        return (List<Lecture>) dao.showTeacherLectures(em, id);
 
-    }    
+    }   
 
 }

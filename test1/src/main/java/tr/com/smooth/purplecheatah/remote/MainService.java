@@ -224,6 +224,20 @@ public class MainService {
         }
     }
 
+    
+    
+    public List<TakenLecture> getLetterGrades(String id) {
+        EntityManager em = createSession();
+        try {
+            return studentService.getLetterGrades(em,id);
+            } catch (Exception e) {
+            rollback(em);
+            throw e;
+        } finally {
+            commit(em);
+        }
+    }
+
     public List<Lecture>  showLectures() {
         EntityManager em = createSession();
         try {
@@ -235,15 +249,10 @@ public class MainService {
             commit(em);
         }
     }
-    
-    public List<TakenLecture> getLetterGrades(String id) {
+    public List<Lecture>  showTeacherLectures(String id) {
         EntityManager em = createSession();
         try {
-            return studentService.getLetterGrades(em,id);
-    public List<Lecture>  showTeacherLectures() {
-        EntityManager em = createSession();
-        try {
-            return (List<Lecture>) teacherService.showTeacherLectures(em);
+            return (List<Lecture>) teacherService.showTeacherLectures(em,id);
         } catch (Exception e) {
             rollback(em);
             throw e;
