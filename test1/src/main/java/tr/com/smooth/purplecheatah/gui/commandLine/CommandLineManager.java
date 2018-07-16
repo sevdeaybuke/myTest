@@ -13,7 +13,6 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 import tr.com.smooth.purplecheatah.app.Application;
 import tr.com.smooth.purplecheatah.gui.GuiManager;
-import tr.com.smooth.purplecheatah.models.Exam;
 import tr.com.smooth.purplecheatah.models.Lecture;
 import tr.com.smooth.purplecheatah.models.ExamTaken;
 import tr.com.smooth.purplecheatah.models.Exam;
@@ -59,29 +58,6 @@ public class CommandLineManager implements GuiManager {
 
         System.out.println("7 ) " + label.getString("STUDENT_SEE_LECTURES"));
 
-                        System.exit(0);
-                    }
-                    case 2: {
-                       showSelfInfo(id);
-                        break;
-                    }
-                    case 3: {
-                        showTakenLectures();
-                        break;
-                    }
-                    case 4: {
-                       selectLectures();
-                        break;
-                    }
-                    case 5: {
-                       showExamInfo(id);
-                        break;
-                    }
-                    case 6: {
-                       showGradeInfo();
-                        break;
-                    }
-                    /*
         Integer selection = toInt(read(label.getString("SELECT_ACTION")));
 
         if (selection == null) {
@@ -176,15 +152,7 @@ public class CommandLineManager implements GuiManager {
                     break;
                 }
                 
-                
-                /*
-                 case 3: {
-                 addStudent();
-                 break;
-                 }
-                 case 4: {
-                 deleteStudent();
-                 }*/
+            
 
             }
         }
@@ -302,28 +270,7 @@ public class CommandLineManager implements GuiManager {
         }
     }
 
-    /*
-     private void addStudent() throws Exception {
-     System.out.println("Öğrenci Ekleme");
-     Student student = new Student();
-     student.setId(toInt(read("Id")));
-     student.setName(read("Adi"));
-     student.setEmail(read("Email"));
-
-     getMainService().saveStudent(student);
-     }
-
-     private void deleteStudent() throws IOException, Exception {
-
-     System.out.println("Öğrenci Silme");
-     String id;
-
-     id = (read("Silinecek ogrencicinin id no"));
-
-     getMainService().deleteStudent(id);
-
-    }
-     */
+   
     private void showTeacher() throws Exception {
         List<Teacher> teachers = getMainService().getTeacher();
         hr();
@@ -394,13 +341,8 @@ public class CommandLineManager implements GuiManager {
 
     }
 
-    private void showExamInfo(String id) {
+    private void showExamInfo() {
         System.out.println("Öğrenciye ait sınav bilgileri görüntüleniyor:");
-        Exam exam = new Exam();
-        exam = getMainService().showExamInfo(id);
-        System.out.println(exam.toString());
-        
-        
     }
 
     private void showGradeInfo() {
