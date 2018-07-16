@@ -70,7 +70,7 @@ public class Exam implements Serializable {
     @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "e_hour")
-    private String eHour;
+    private int eHour;
     @ManyToMany(mappedBy = "examCollection")
     private Collection<Student> studentCollection;
     @JoinColumn(name = "lecture_id", referencedColumnName = "id")
@@ -84,7 +84,7 @@ public class Exam implements Serializable {
         this.id = id;
     }
 
-    public Exam(Integer id, String name, int sHour, String eHour) {
+    public Exam(Integer id, String name, int sHour, int eHour) {
         this.id = id;
         this.name = name;
         this.sHour = sHour;
@@ -123,11 +123,11 @@ public class Exam implements Serializable {
         this.sHour = sHour;
     }
 
-    public String getEHour() {
+    public int getEHour() {
         return eHour;
     }
 
-    public void setEHour(String eHour) {
+    public void setEHour(int eHour) {
         this.eHour = eHour;
     }
 

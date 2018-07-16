@@ -11,12 +11,15 @@ import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import tr.com.smooth.purplecheatah.app.Application;
 import tr.com.smooth.purplecheatah.gui.GuiManager;
 import tr.com.smooth.purplecheatah.models.Lecture;
 import tr.com.smooth.purplecheatah.models.ExamTaken;
 import tr.com.smooth.purplecheatah.models.Exam;
 import tr.com.smooth.purplecheatah.models.ExamTakenPK;
+import static tr.com.smooth.purplecheatah.models.Exam_.lectureId;
 import tr.com.smooth.purplecheatah.models.Student;
 import tr.com.smooth.purplecheatah.models.TakenLecture;
 import tr.com.smooth.purplecheatah.models.Teacher;
@@ -107,6 +110,7 @@ public class CommandLineManager implements GuiManager {
                                 showLetterGrades(id);
                                 break;
                             }
+                            
 
                         }
                         /*
@@ -173,6 +177,9 @@ public class CommandLineManager implements GuiManager {
         System.out.println("6 ) Not Girisi");
         System.out.println("7 ) Dersleri Goruntule");
         
+        //TODO Add here 8) Sınav Ekle
+        //Currently it is in the menu 7-3
+        
        
         
  
@@ -228,6 +235,10 @@ public class CommandLineManager implements GuiManager {
                                 showTeacherLectures(id);
                                 break;
                             }
+                            case 3: {
+                                addExam(id);
+                                break;
+                            }
 
                         }
                     
@@ -252,6 +263,14 @@ public class CommandLineManager implements GuiManager {
     private Integer toInt(String text) {
         try {
             return Integer.parseInt(text);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    
+    private Float toFloat(String text) {
+        try {
+            return Float.parseFloat(text);
         } catch (Exception e) {
             return null;
         }
@@ -476,6 +495,65 @@ public class CommandLineManager implements GuiManager {
             System.out.print(String.format("%50s", lecture.getCredit()));
             System.out.println("");
         }
+    }
+    
+    private void addExam(String id){
+        
+        showTeacherLectures(id);
+        
+        Exam exam = new Exam();
+        Lecture lecture = new Lecture();
+        
+        try {
+            Integer lectureId = toInt(read(label.getString("LECTURE_ID")));
+            lecture.setId(lectureId);
+            exam.setLectureId(lecture);
+        } catch (IOException ex) {
+            Logger.getLogger(CommandLineManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+               
+        
+        try {
+            String examName = read(label.getString("EXAM_NAME"));
+            exam.setName(examName);
+        } catch (IOException ex) {
+            Logger.getLogger(CommandLineManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        try {
+            String semester = read(label.getString("SEMESTER"));
+            exam.setSemester(semester);
+        } catch (IOException ex) {
+            Logger.getLogger(CommandLineManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        try {
+            Integer sHour = toInt(read(label.getString("START_HOUR")));
+            exam.setSHour(sHour);        
+        } catch (IOException ex) {
+            Logger.getLogger(CommandLineManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        try {
+            Integer eHour = toInt(read(label.getString("END_HOUR")));
+            exam.setEHour(eHour);
+        } catch (IOException ex) {
+            Logger.getLogger(CommandLineManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        try {
+            Float percentage = toFloat(read(label.getString("PERCENTAGE")));
+            exam.setPercentage(percentage);
+        } catch (IOException ex) {
+            Logger.getLogger(CommandLineManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        getMainService().addExam(id, exam);
+        
+        
+        
+        
+        
     }
     
 }

@@ -274,6 +274,21 @@ public class MainService {
         }
     }
     
+    public void addExam(String id, Exam exam){
+        EntityManager em = createSession();
+        
+        try {
+            teacherService.addExam(em,id, exam);
+        } catch (Exception e) {
+            rollback(em);
+            throw e;
+        } finally {
+            commit(em);
+        }
+    }
+    
+    
+    
 
    
 

@@ -5,6 +5,8 @@
  */
 package tr.com.smooth.purplecheatah.dao;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -64,10 +66,11 @@ public class TeacherDao {
 
     public Exam showExamInfo(EntityManager em, String id) {
         Query query = em.createQuery("select s from Teacher s where id=:id");
-        int t_id=Integer.parseInt(id);
+        int t_id = Integer.parseInt(id);
         query.setParameter("id", id);
         return (Exam) query.getSingleResult();
     }
+
     public List<Lecture> getLectures(EntityManager em) {
         Query query = em.createQuery("select s from Lecture s");
         return query.getResultList();
@@ -78,21 +81,44 @@ public class TeacherDao {
 
         return (List<Lecture>) query.getResultList();
     }
-    public List<Lecture> getTeacherLectures(EntityManager em,String id) {
+
+    public List<Lecture> getTeacherLectures(EntityManager em, String id) {
         Query query = em.createQuery("select lecture_name,credit from Lecture inner join  Teacher on Lecture.t_id=Teacher.id where Teacher.id=:id");
         int t_id = Integer.parseInt(id);
         query.setParameter("id", t_id);
-        
+
         return query.getResultList();
     }
 
-    public List<Lecture> showTeacherLectures(EntityManager em,String id) {
+    public List<Lecture> showTeacherLectures(EntityManager em, String id) {
         Query query = em.createQuery("select lecture_name,credit from Lecture inner join  Teacher on Lecture.t_id=Teacher.id where Teacher.id=:id");
         int t_id = Integer.parseInt(id);
 
         query.setParameter("id", t_id);
         return (List<Lecture>) query.getResultList();
-    }    
-       
+    }
+
+    public void addExam(EntityManager em, String id, Exam exam) {
+
+
+        em.persist(exam);
+
+        em.getTransaction().commit();
+        em.close();
+        
+        /*
+        Query query = em.createQuery("INSERT INTO Exam (lectureId , name ,semester, sHour, eHour, percentage) values"
+                + "(:lId, :name, :semester, :sHour, :eHour, :percentage) ");
+
+        query.setParameter("lId", exam.getLectureId().getId());
+        query.setParameter("name", exam.getName());
+        query.setParameter("semester", exam.getSemester());
+        query.setParameter("sHour", exam.getSHour());
+        query.setParameter("eHour", exam.getEHour());
+        query.setParameter("percentage", exam.getPercentage());
+
+        */
+
+    }
 
 }
