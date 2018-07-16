@@ -22,6 +22,7 @@ import tr.com.smooth.purplecheatah.models.TakenLecture;
 import tr.com.smooth.purplecheatah.models.Teacher;
 import tr.com.smooth.purplecheatah.remote.MainService;
 import tr.com.smooth.purplecheatah.types.UserType;
+import tr.com.smooth.purplecheatah.utilities.Utilities;
 
 /**
  *
@@ -45,7 +46,7 @@ public class CommandLineManager implements GuiManager {
     }
 
     private void studentScreen(String id) throws IOException, Exception {
-
+        
         System.out.println(label.getString("STUDENT_INFORMATION_SYSTEM"));
         hr();
         System.out.println("1 ) " + label.getString("EXIT"));
@@ -121,9 +122,37 @@ public class CommandLineManager implements GuiManager {
                 }
 
                 case 7: {
-                    showLectures();
+                    
+                    
+                   System.out.println("1 ) " + label.getString("ALL_COURSES"));
+                    System.out.println("2 ) " + label.getString("OWN_COURSES"));
+
+                    Integer gradeType = toInt(read(label.getString("SELECT_ACTION")));
+
+                    if (gradeType == null) {
+                        System.out.println(label.getString("CHOICE_ERR"));
+
+                    } else {
+
+                        switch (gradeType) {
+                            case 1: {
+
+                                showLectures();
+                                break;
+                            }
+                            case 2: {
+                                
+                                showTeacherLectures(id);
+                                break;
+                            }
+
+                        }
+                    
+                    }
                     break;
                 }
+                
+                
                 /*
                  case 3: {
                  addStudent();
@@ -183,7 +212,7 @@ public class CommandLineManager implements GuiManager {
                     break;
                 }
                 case 8: {
-                    showTeacherLectures();
+                    showTeacherLectures(id);
                     break;
                 }           
 
@@ -422,7 +451,7 @@ public class CommandLineManager implements GuiManager {
 
 
     }
-    private void showTeacherLectures() {
+    private void showTeacherLectures(String id) {
         System.out.println("Alınan Derslerin Listesi");
         List<Lecture> lectures = getMainService().showLectures();
         hr();
@@ -437,4 +466,5 @@ public class CommandLineManager implements GuiManager {
             System.out.println("");
         }
     }
+    
 }
