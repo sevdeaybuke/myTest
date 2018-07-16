@@ -225,7 +225,7 @@ public class MainService {
         }
     }
 
-    public Exam showExamInfo(String id) {
+    public List<Exam>showExamInfo(String id) {
         EntityManager em = createSession();
         try {
             return studentService.showExamInfo(em, id);

@@ -68,7 +68,7 @@ public class StudentService {
     }
 
 
-    public Exam showExamInfo(EntityManager em, String id) {
+    public List<Exam> showExamInfo(EntityManager em, String id) {
         return dao.showExamInfo(em,id);
     }
 
