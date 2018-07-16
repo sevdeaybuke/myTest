@@ -170,6 +170,11 @@ public class CommandLineManager implements GuiManager {
         System.out.println("3 ) Ogretmen Ekle");
         System.out.println("4 ) Ogretmen Sil");
         System.out.println("5 ) Ogrenci Ara");
+        System.out.println("6 ) Not Girisi");
+        System.out.println("7 ) Dersleri Goruntule");
+        
+       
+        
  
         Integer selection = toInt(read("Seciminiz"));
         if (selection == null) {
@@ -200,13 +205,35 @@ public class CommandLineManager implements GuiManager {
 
                 }
                 case 7: {
-                    showLectures();
+                    
+                    
+                   System.out.println("1 ) " + label.getString("ALL_COURSES"));
+                    System.out.println("2 ) " + label.getString("OWN_COURSES"));
+
+                    Integer gradeType = toInt(read(label.getString("SELECT_ACTION")));
+
+                    if (gradeType == null) {
+                        System.out.println(label.getString("CHOICE_ERR"));
+
+                    } else {
+
+                        switch (gradeType) {
+                            case 1: {
+
+                                showLectures();
+                                break;
+                            }
+                            case 2: {
+                                
+                                showTeacherLectures(id);
+                                break;
+                            }
+
+                        }
+                    
+                    }
                     break;
                 }
-                case 8: {
-                    showTeacherLectures(id);
-                    break;
-                }           
 
             }
         }
