@@ -9,6 +9,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import tr.com.smooth.purplecheatah.models.Exam;
+import tr.com.smooth.purplecheatah.models.Lecture;
 import tr.com.smooth.purplecheatah.models.Student;
 import tr.com.smooth.purplecheatah.models.Teacher;
 
@@ -37,7 +38,7 @@ public class TeacherDao {
 
     }
 
-    public boolean login(EntityManager em,String id, String pass) {
+    public boolean login(EntityManager em, String id, String pass) {
         Query query = em.createQuery("select t from Teacher t where t.id = :id and t.password= :password");
         int int_id = Integer.parseInt(id);
         query.setParameter("id", int_id);
@@ -56,7 +57,7 @@ public class TeacherDao {
 
     public Teacher showSelfTeachers(EntityManager em, String id) {
         Query query = em.createQuery("select s from Teacher s where id=:id");
-        int t_id=Integer.parseInt(id);
+        int t_id = Integer.parseInt(id);
         query.setParameter("id", id);
         return (Teacher) query.getSingleResult();
     }
@@ -67,5 +68,31 @@ public class TeacherDao {
         query.setParameter("id", id);
         return (Exam) query.getSingleResult();
     }
+    public List<Lecture> getLectures(EntityManager em) {
+        Query query = em.createQuery("select s from Lecture s");
+        return query.getResultList();
+    }
+
+    public List<Lecture> showLectures(EntityManager em) {
+        Query query = em.createQuery("SELECT s FROM Lecture s");
+
+        return (List<Lecture>) query.getResultList();
+    }
+    public List<Lecture> getTeacherLectures(EntityManager em,String id) {
+        Query query = em.createQuery("select lecture_name,credit from Lecture inner join  Teacher on Lecture.t_id=Teacher.id where Teacher.id=:id");
+        int t_id = Integer.parseInt(id);
+        query.setParameter("id", t_id);
+        
+        return query.getResultList();
+    }
+
+    public List<Lecture> showTeacherLectures(EntityManager em,String id) {
+        Query query = em.createQuery("select lecture_name,credit from Lecture inner join  Teacher on Lecture.t_id=Teacher.id where Teacher.id=:id");
+        int t_id = Integer.parseInt(id);
+
+        query.setParameter("id", t_id);
+        return (List<Lecture>) query.getResultList();
+    }    
+       
 
 }

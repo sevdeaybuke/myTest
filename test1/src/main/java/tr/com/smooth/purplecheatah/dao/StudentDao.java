@@ -5,12 +5,16 @@
  */
 package tr.com.smooth.purplecheatah.dao;
 
-// This is a DAO Class
+// This is a DAO Class for students
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import tr.com.smooth.purplecheatah.models.Exam;
+import tr.com.smooth.purplecheatah.models.Lecture;
+import tr.com.smooth.purplecheatah.models.ExamTaken;
+import tr.com.smooth.purplecheatah.models.ExamTakenPK;
 import tr.com.smooth.purplecheatah.models.Student;
+import tr.com.smooth.purplecheatah.models.TakenLecture;
 import tr.com.smooth.purplecheatah.utilities.Utilities;
 
 /**
@@ -69,4 +73,31 @@ public class StudentDao {
         query.setParameter("id",Integer.parseInt(id));
         return (Exam) query.getSingleResult();
     }
+    public List<Lecture> getLectures(EntityManager em) {
+        Query query = em.createQuery("select s from Lecture s");
+        return query.getResultList();
+    }
+
+    public List<Lecture> showLectures(EntityManager em) {
+        Query query = em.createQuery("SELECT s FROM Lecture s");
+        
+        return (List<Lecture>) query.getResultList();
+    }
+
+   
+    
+    public List<ExamTaken> getExamGrades(EntityManager em, String id){
+        Query query = em.createQuery("SELECT e FROM ExamTaken e where e.student.id = :id");
+        query.setParameter("id", Integer.parseInt(id));
+        return query.getResultList();
+    }
+    
+    public List<TakenLecture> getLetterGrades(EntityManager em, String id){
+        Query query = em.createQuery("SELECT e FROM TakenLecture e where e.student.id = :id");
+        query.setParameter("id", Integer.parseInt(id));
+        return query.getResultList();
+    }
+//conflict merge
+//Pull request test
+    
 }

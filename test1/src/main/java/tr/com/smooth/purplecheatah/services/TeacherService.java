@@ -8,6 +8,7 @@ package tr.com.smooth.purplecheatah.services;
 import java.util.List;
 import javax.persistence.EntityManager;
 import tr.com.smooth.purplecheatah.dao.TeacherDao;
+import tr.com.smooth.purplecheatah.models.Lecture;
 import tr.com.smooth.purplecheatah.models.Student;
 import tr.com.smooth.purplecheatah.models.Teacher;
 
@@ -42,5 +43,14 @@ public class TeacherService {
     public Teacher showSelfTeacher(EntityManager em, String id) {
         return dao.showSelfTeachers(em,id);
     }
+    public List<Lecture> getTeacherLectures(EntityManager em, String id) {
+        return (List<Lecture>) dao.getTeacherLectures(em, id);
+
+    }
+
+    public List<Lecture> showTeacherLectures(EntityManager em, String id) {
+        return (List<Lecture>) dao.showTeacherLectures(em, id);
+
+    }   
 
 }
