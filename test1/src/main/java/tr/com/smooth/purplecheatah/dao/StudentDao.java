@@ -68,10 +68,10 @@ public class StudentDao {
         
     }
 
-    public Exam showExamInfo(EntityManager em, String id) {
-        Query query = em.createQuery("SELECT e , s  FROM ExamTaken , Exam  WHERE e.examTakenPK.studentId = :id and e.examTakenPK.examId=s.id");
+    public List<Exam> showExamInfo(EntityManager em, String id) {
+        Query query = em.createQuery("SELECT s FROM ExamTaken e, Exam s WHERE e.examTakenPK.studentId = :id and e.examTakenPK.examId=s.id");
         query.setParameter("id",Integer.parseInt(id));
-        return (Exam) query.getSingleResult();
+        return (List<Exam>) query.getResultList();
     }
     public List<Lecture> getLectures(EntityManager em) {
         Query query = em.createQuery("select s from Lecture s");

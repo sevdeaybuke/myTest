@@ -83,7 +83,7 @@ public class CommandLineManager implements GuiManager {
                     break;
                 }
                 case 5: {
-                    showExamInfo();
+                    showExamInfo(id);
                     break;
                 }
                 case 6: {
@@ -341,8 +341,22 @@ public class CommandLineManager implements GuiManager {
 
     }
 
-    private void showExamInfo() {
+    private void showExamInfo(String id) {
+        hr();
         System.out.println("Öğrenciye ait sınav bilgileri görüntüleniyor:");
+        List<Exam> exams = getMainService().showExamInfo(id);
+        System.out.print(String.format("%5s", "ID"));
+        System.out.print(String.format("%50s", "LECTURE ID"));
+        System.out.print(String.format("%50s", "NAME"));
+        System.out.println("");
+        for (Exam exam : exams) {
+            System.out.print(String.format("%5s", exam.getId()));
+            System.out.print(String.format("%50s", exam.getLectureId()));
+            System.out.print(String.format("%50s", exam.getName()));
+
+            System.out.println("");
+        }
+        
     }
 
     private void showGradeInfo() {
